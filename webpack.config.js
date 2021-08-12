@@ -10,6 +10,7 @@ module.exports = {
     // Webpack build src
     path: path.resolve(__dirname, "dist"), // Finds the directory for the build of the project
     filename: "main.js", // Build filename
+    assetModuleFilename: "assets/images/[hash][ext][query]",
   },
   resolve: {
     extensions: [".js"], // File extensions for use
@@ -30,6 +31,20 @@ module.exports = {
       {
         test: /\.png$/,
         type: "asset/resource",
+      },
+      {
+        test: /\.woff|woff2$/,
+        use: {
+          loader: "url-loader",
+          options: {
+            limit: 10000,
+            mimetype: "aplication/font-woff",
+            name: "[name].[ext]",
+            outputPath: "./assets/fonts/",
+            publicPath: "./assets/fonts/",
+            esModule: false,
+          },
+        },
       },
     ],
   },
