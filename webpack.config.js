@@ -2,6 +2,8 @@ const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const CopyPlugin = require("copy-webpack-plugin");
+const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
+const TerserPlugin = require("terser-webpack-plugin");
 
 // Webpack Configurations
 module.exports = {
@@ -9,7 +11,7 @@ module.exports = {
   output: {
     // Webpack build src
     path: path.resolve(__dirname, "dist"), // Finds the directory for the build of the project
-    filename: "main.js", // Build filename
+    filename: "[name].[contenthash].js", // Build filename
     assetModuleFilename: "assets/images/[hash][ext][query]",
   },
   resolve: {
@@ -33,13 +35,13 @@ module.exports = {
         type: "asset/resource",
       },
       {
-        test: /\.woff|woff2$/,
+        test: /\.(woff|woff2)$/,
         use: {
           loader: "url-loader",
           options: {
             limit: 10000,
             mimetype: "aplication/font-woff",
-            name: "[name].[ext]",
+            name: "[name].[contenthash].[ext]",
             outputPath: "./assets/fonts/",
             publicPath: "./assets/fonts/",
             esModule: false,
@@ -54,7 +56,9 @@ module.exports = {
       template: "./public/index.html",
       filename: "./index.html",
     }),
-    new MiniCssExtractPlugin(),
+    new MiniCssExtractPlugin({
+      filename: "assets/[name].[contenthash].css"
+    }),
     new CopyPlugin({
       patterns: [
         {
@@ -64,4 +68,8 @@ module.exports = {
       ],
     }),
   ],
+  optimization: {
+    minimize: true,
+    minimizer: [new CssMinimizerPlugin(), new TerserPlugin()],
+  },
 };
