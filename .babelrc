@@ -1,0 +1,7 @@
+// Babel Configurations
+{
+  "presets": ["@babel/preset-env" /* Works with modern JavaScript */],
+  "plugins": [
+    "@babel/plugin-transform-runtime" /* Works with JavaScript Asynchronism*/
+  ]
+}

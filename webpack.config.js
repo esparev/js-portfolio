@@ -1,6 +1,6 @@
 const path = require("path");
 
-// Configurations
+// Webpack Configurations
 module.exports = {
   entry: "./src/index.js", // App entry point
   output: {
@@ -10,5 +10,16 @@ module.exports = {
   },
   resolve: {
     extensions: [".js"], // File extensions for use
+  },
+  module: {
+    rules: [
+      {
+        test: /\.m?js$/, // Will work with any .mjs and .js file
+        exclude: /node_modules/, // It won't use anything from this folder
+        use: {
+          loader: "babel-loader",
+        },
+      },
+    ],
   },
 };
