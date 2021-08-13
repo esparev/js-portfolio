@@ -41,7 +41,7 @@ module.exports = {
         type: "asset/resource",
       },
       {
-        test: /\.woff2$/,
+        test: /\.woff$/,
         use: {
           loader: "url-loader",
           options: {
