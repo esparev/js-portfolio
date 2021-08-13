@@ -16,6 +16,12 @@ module.exports = {
   },
   resolve: {
     extensions: [".js"], // File extensions for use
+    alias: {
+      "@utils": path.resolve(__dirname, "src/utils/"),
+      "@templates": path.resolve(__dirname, "src/templates/"),
+      "@styles": path.resolve(__dirname, "src/styles/"),
+      "@images": path.resolve(__dirname, "src/assets/images/"),
+    },
   },
   module: {
     rules: [
@@ -40,10 +46,10 @@ module.exports = {
           loader: "url-loader",
           options: {
             limit: 10000,
-            mimetype: "aplication/font-woff",
-            name: "[name].[contenthash].[ext]",
+            mimetype: "application/font-woff",
+            name: "[name].[ext]",
             outputPath: "./assets/fonts/",
-            publicPath: "./assets/fonts/",
+            publicPath: "../assets/fonts/",
             esModule: false,
           },
         },
@@ -57,7 +63,7 @@ module.exports = {
       filename: "./index.html",
     }),
     new MiniCssExtractPlugin({
-      filename: "assets/[name].[contenthash].css"
+      filename: "assets/[name].[contenthash].css",
     }),
     new CopyPlugin({
       patterns: [
