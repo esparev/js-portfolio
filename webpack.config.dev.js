@@ -14,7 +14,6 @@ module.exports = {
     assetModuleFilename: "assets/images/[hash][ext][query]",
   },
   mode: "development",
-  watch: true,
   resolve: {
     extensions: [".js"], // File extensions for use
     alias: {
@@ -42,7 +41,7 @@ module.exports = {
         type: "asset/resource",
       },
       {
-        test: /\.(woff|woff2)$/,
+        test: /\.woff2$/,
         use: {
           loader: "url-loader",
           options: {
